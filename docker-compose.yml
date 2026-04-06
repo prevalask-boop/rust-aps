@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  spin-host:
+    image: ghcr.io/fermyon/spin:v2.4.3
+    command: ["up", "--listen", "0.0.0.0:3000"]
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./spin.toml:/spin.toml
+      # Mount the compiled WASM modules for hot-reloading capability
+      - ./crates:/crates
+    restart: always

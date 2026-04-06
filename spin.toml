@@ -1,0 +1,18 @@
+spin_manifest_version = 2
+
+[application]
+name = "rust-algo-monorepo"
+version = "0.1.0"
+authors = ["Admin"]
+description = "A central repository for Rust algorithms running in a WASM container"
+
+[[trigger.http]]
+route = "/..."
+component = "algo-example"
+
+[component.algo-example]
+source = "crates/algo-example/target/wasm32-wasip1/release/algo_example.wasm"
+allowed_outbound_hosts = []
+[component.algo-example.build]
+command = "cd crates/algo-example && cargo build --target wasm32-wasip1 --release"
+watch = ["crates/algo-example/src/**/*.rs", "crates/algo-example/Cargo.toml"]
