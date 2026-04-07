@@ -16,3 +16,14 @@ allowed_outbound_hosts = []
 [component.algo-example.build]
 command = "cd crates/algo-example && cargo build --target wasm32-wasip1 --release"
 watch = ["crates/algo-example/src/**/*.rs", "crates/algo-example/Cargo.toml"]
+
+[[trigger.http]]
+route = "/api/v1/aps/cp/..."
+component = "algo-aps-cp"
+
+[component.algo-aps-cp]
+source = "crates/algo-aps-cp/target/wasm32-wasip1/release/algo_aps_cp.wasm"
+allowed_outbound_hosts = []
+[component.algo-aps-cp.build]
+command = "cd crates/algo-aps-cp && cargo build --target wasm32-wasip1 --release"
+watch = ["crates/algo-aps-cp/src/**/*.rs", "crates/algo-aps-cp/Cargo.toml"]

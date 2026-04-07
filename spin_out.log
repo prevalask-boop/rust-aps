@@ -1,0 +1,6 @@
+Logging component stdio to ".spin/logs/"
+
+Serving http://127.0.0.1:3000
+Available Routes:
+  algo-aps-cp: http://127.0.0.1:3000/api/v1/aps/cp (wildcard)
+  algo-example: http://127.0.0.1:3000 (wildcard)

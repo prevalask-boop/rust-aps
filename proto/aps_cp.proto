@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package aps.v1;
+
+option go_package = "github.com/monorepo/aps/api/proto/v1;apsv1";
+
+// --------------------------------------------------------
+// Inputs: Data Model for Constraint Programming APS
+// --------------------------------------------------------
+
+message Operation {
+    // Unique identifier for the operation
+    string op_id = 1;
+    // Estimated time required to complete the operation (in minutes/seconds depending on system)
+    uint32 duration = 2;
+    // ID of the machine/resource required to process this operation
+    string machine_id = 3;
+    // List of operation IDs that MUST be completed before this operation can start
+    repeated string dependencies = 4;
+}
+
+message Job {
+    // Unique identifier for the job/order
+    string job_id = 1;
+    // List of operations required to complete this job
+    repeated Operation operations = 2;
+}
+
+message ScheduleRequest {
+    // List of all jobs to be scheduled in this planning horizon
+    repeated Job jobs = 1;
+}
+
+// --------------------------------------------------------
+// Outputs: Scheduling Plan (Gantt Chart Data)
+// --------------------------------------------------------
+
+message ScheduledOperation {
+    // The parent job
+    string job_id = 1;
+    // The operation being executed
+    string op_id = 2;
+    // The machine it was assigned to
+    string machine_id = 3;
+    // Scheduled start time (relative to planning horizon 0)
+    uint32 start_time = 4;
+    // Scheduled end time
+    uint32 end_time = 5;
+}
+
+message ScheduleResponse {
+    // Total time required to complete all jobs (Makespan)
+    uint32 makespan = 1;
+    // The detailed Gantt chart schedule
+    repeated ScheduledOperation schedule = 2;
+}
